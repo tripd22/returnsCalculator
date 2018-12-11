@@ -1,0 +1,4 @@
+Ticker	Amount	Price-per-share	Brokerage
+VAS	12	66.83
+VGE	14	55.52	20.00
+VAS	11	68.23	20.00
