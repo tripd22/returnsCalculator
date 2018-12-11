@@ -17,11 +17,18 @@ public class Main {
 		
 		List<ShareHolding> shares = parser.parse(file);
 		
+		ASXPriceService priceService = new ASXPriceService();
+		
 		if (shares != null) {
 			for (ShareHolding item: shares) {
-				System.out.println("Ticker: " + item.getTicker() + ",amount: " + item.getAmount() + ", price: " + item.getPrice() + ", brokerage: " + item.getBrokerage() );
+				Float currentPrice = priceService.retrievePrice(item.getTicker());
+				System.out.println("Ticker: " + item.getTicker() + ",amount: " + item.getAmount() + ", purchasePrice: " + item.getPrice() + ", currentPrice: " + currentPrice +", brokerage: " + item.getBrokerage() );
 			}
 		}
+		
+		// testing dividend service
+		ASXDividendService d = new ASXDividendService();
+		d.retrieveDividends("VAS");
 		
 	}
 
