@@ -43,9 +43,9 @@ public class ASXDividendService {
 				for (int i = 0; i < l.length; i++) {
 					String word = l[i];
 					if (word.matches("^[0-9.]+c$")) { // i.e. matches a decimal number followed by the character 'c' (cents)
-						// turn div amount into float
+						// turn div amount into float, convert cents to dollars
 						String amt = word.substring(0, word.length()-1);
-						Float amount = Float.valueOf(amt);
+						Float amount = Float.valueOf(amt) / 100;
 						
 						// get ex div date
 						SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");

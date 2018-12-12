@@ -1,4 +1,4 @@
-Ticker	Amount	Price-per-share	Brokerage
-VAS	asdf	66.83	20.00
-VGE	14	55.52	20.00
-VAS	11	68.23	20.00
+Ticker	Amount	PricePerShare	Brokerage PurchaseDate
+VAS	asdf	66.83	20.00	01/01/2016
+VGE	14	55.52	20.00	01/01/2016
+VAS	11	68.23	20.00	01/01/2016

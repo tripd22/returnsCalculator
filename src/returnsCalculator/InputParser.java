@@ -1,7 +1,9 @@
 package returnsCalculator;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import returnsCalculator.ShareHolding;
@@ -27,8 +29,8 @@ public class InputParser {
 		      String[] data = line.split("\t");
 		      line_counter++;
 		      
-		      // if the length of data != 4, then the share data in the input file is an invalid format
-		      if (data.length != 4) {
+		      // if the length of data != 5, then the share data in the input file is an invalid format
+		      if (data.length != 5) {
 		    	  System.out.println("Input data on line " + line_counter + " was incorrectly formatted");
 		    	  return null;
 		      }
@@ -37,7 +39,11 @@ public class InputParser {
 		      int amount = Integer.parseInt(data[1]);
 		      float price = Float.parseFloat(data[2]);
 		      float brokerage = Float.parseFloat(data[3]);
-		      ShareHolding s = new ShareHolding(amount, price, ticker, brokerage);
+		      
+		      SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		      Date purchaseDate = sdf.parse(data[4]);
+		      
+		      ShareHolding s = new ShareHolding(amount, price, ticker, brokerage, purchaseDate);
 		      
 		      if (!s.isValid()) {
 		    	  System.out.println("Stock Holding data was invalid!");
