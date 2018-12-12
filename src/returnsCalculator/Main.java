@@ -28,7 +28,7 @@ public class Main {
 		
 		// testing dividend service
 		ASXDividendService d = new ASXDividendService();
-		d.retrieveDividends("VAS");
+		List<DividendPayment> dividends = d.retrieveDividends("VAS");
 		
 	}
 

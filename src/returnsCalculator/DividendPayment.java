@@ -4,13 +4,11 @@ import java.util.Date;
 
 public class DividendPayment {
 	float amount;
-	Date date;
-	float reinvestmentPrice;
+	Date exDividendDate;
 	
-	public DividendPayment(float amount, Date date, float reinvestmentPrice) {
+	public DividendPayment(float amount, Date exDividendDate) {
 		this.amount = amount;
-		this.date = date;
-		this.reinvestmentPrice = reinvestmentPrice;
+		this.exDividendDate = exDividendDate;
 	}
 	
 	float getAmount() {
@@ -21,19 +19,12 @@ public class DividendPayment {
 		this.amount = amount;
 	}
 	
-	Date getDate() {
-		return this.date;
+	Date getExDividendDate() {
+		return this.exDividendDate;
 	}
 	
-	void setDate(Date date) {
-		this.date = date;
+	void setExDividendDate(Date exDividendDate) {
+		this.exDividendDate = exDividendDate;
 	}
 	
-	float getReinvestmentPrice() {
-		return this.reinvestmentPrice;
-	}
-	
-	void setReinvestmentPrice(float reinvestmentPrice) {
-		this.reinvestmentPrice = reinvestmentPrice;
-	}
 }
