@@ -2,13 +2,16 @@ package returnsCalculator;
 
 import java.util.Date;
 
-public class DividendPayment {
+public class DividendPayment implements Comparable<DividendPayment> {
+
 	float amount;
 	Date exDividendDate;
+	float reinvestmentPrice;
 	
-	public DividendPayment(float amount, Date exDividendDate) {
+	public DividendPayment(float amount, Date exDividendDate, float reinvestmentPrice) {
 		this.amount = amount;
 		this.exDividendDate = exDividendDate;
+		this.reinvestmentPrice = reinvestmentPrice;
 	}
 	
 	float getAmount() {
@@ -27,4 +30,19 @@ public class DividendPayment {
 		this.exDividendDate = exDividendDate;
 	}
 	
+	float getReinvestmentPrice() {
+		return this.reinvestmentPrice;
+	}
+	
+	void setReinvestmentPrice(float reinvestmentPrice) {
+		this.reinvestmentPrice = reinvestmentPrice;
+	}
+	
+	public int compareTo(DividendPayment dividendPayment) {
+		if (this.getExDividendDate().after(dividendPayment.getExDividendDate())) {
+			return 1;
+		} else {
+			return -1;
+		}
+	}
 }
