@@ -2,7 +2,7 @@ package returnsCalculator;
 
 import java.util.Date;
 
-public class ShareHolding {
+public class ShareHolding implements Comparable<ShareHolding> {
 	
 	private int amount;
 	private float price;
@@ -80,5 +80,13 @@ public class ShareHolding {
 			return false;
 		}
 		return true;
+	}
+	
+	public int compareTo(ShareHolding shareHolding) {
+		if (this.getPurchaseDate().after(shareHolding.getPurchaseDate())) {
+			return 1;
+		} else {
+			return -1;
+		}
 	}
 }
