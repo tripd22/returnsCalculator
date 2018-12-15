@@ -20,10 +20,13 @@ public class CurrentValueCalculator {
 			if (dividendPayment.getExDividendDate().after(shareHolding.getPurchaseDate())) {
 				sumDividends += dividendPayment.getAmount() * shareHolding.getAmount();
 				if (sumDividends > dividendPayment.getReinvestmentPrice()) {
-					// NOTE - THIS ONLY ALLOWS BUYING ONE SHARE EACH DIVIDEND - MAY NEED TO BUY MORE
-					System.out.println("DRP buys one share at " + dividendPayment.getReinvestmentPrice() + " on " + dividendPayment.getExDividendDate());
-					shareHolding.setAmount(shareHolding.getAmount() + 1);
-					sumDividends -= dividendPayment.getReinvestmentPrice();
+					// downcasting division - get rid of any decimal value
+					int numShares = (int) (sumDividends / dividendPayment.getReinvestmentPrice());
+					
+					shareHolding.setAmount(shareHolding.getAmount() + numShares);
+					sumDividends -= dividendPayment.getReinvestmentPrice() * numShares;
+					
+					System.out.println("DRP: " + (shareHolding.getAmount()-numShares) + " --> " + shareHolding.getAmount() + " share(s), leaving $" + sumDividends + " on " + dividendPayment.getExDividendDate());
 				}
 				
 			}

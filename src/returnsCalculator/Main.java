@@ -15,32 +15,36 @@ public class Main {
 
 		InputParser parser = new InputParser();
 		
-		List<ShareHolding> shares = parser.parse(file);
+		List<ShareHolding> modifiedShares = parser.parse(file);
+		List<ShareHolding> originalShares = parser.parse(file);
 		
 		ASXPriceService priceService = new ASXPriceService();
 		ASXDividendService dividendService = new ASXDividendService();
 		
 		float totalCurrentValue = 0.0f;
-		float totalPurchaseValue = 0.0f;
+		float totalPurchasePrice = 0.0f;
 		
-		if (shares != null) {
-			for (ShareHolding shareHolding: shares) {
+		if (modifiedShares != null) {
+			for (int i = 0; i < modifiedShares.size(); i++) {
+				ShareHolding shareHolding = modifiedShares.get(i);
+				ShareHolding originalShareHolding = originalShares.get(i);
+				
 				Float currentPrice = priceService.retrievePrice(shareHolding.getTicker());
 				//System.out.println("Ticker: " + shareHolding.getTicker() + ",amount: " + shareHolding.getAmount() + ", purchasePrice: " + shareHolding.getPrice() + ", currentPrice: " + currentPrice +", brokerage: " + shareHolding.getBrokerage() );
 				List<DividendPayment> dividendPayments = dividendService.retrieveDividends(shareHolding.getTicker());
 				
 				float currentValue = CurrentValueCalculator.calculateCurrentValue(shareHolding, dividendPayments, currentPrice);
-				float purchaseValue = shareHolding.getPrice() * shareHolding.getAmount() + shareHolding.getBrokerage();
+				float purchasePrice = originalShareHolding.getPrice() * originalShareHolding.getAmount() + shareHolding.getBrokerage();
 				totalCurrentValue += currentValue;
-				totalPurchaseValue += purchaseValue;
+				totalPurchasePrice += purchasePrice;
 				System.out.println(shareHolding.getAmount() + " " + shareHolding.getTicker() + ", current value is " + shareHolding.getAmount()*currentPrice + ", w/ divs is " + currentValue);
 				
 			}
 		}
 		
-		float returnPercentage = totalCurrentValue / totalPurchaseValue;
+		float returnPercentage = totalCurrentValue / totalPurchasePrice;
 		
-		System.out.println("Purchase Value: " + totalPurchaseValue + ", Current Value: " + totalCurrentValue + ", Return: " + returnPercentage + "%");
+		System.out.println("Purchase Value: " + totalPurchasePrice + ", Current Value: " + totalCurrentValue + ", Return: " + returnPercentage + "%");
 		
 		
 		

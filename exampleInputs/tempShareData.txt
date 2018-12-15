@@ -1,2 +1,2 @@
 Ticker	Amount	PricePerShare	Brokerage PurchaseDate
-VAS	12	66.83	20.00	01/01/2016
+VAS	67	73.55	20.00	12/10/2017
