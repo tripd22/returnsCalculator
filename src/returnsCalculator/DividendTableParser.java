@@ -7,15 +7,13 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 
- * @author darcy
- * This class parses the dividend table text scraped from the Vanguard
- * website, and returns a list of DividendPayment objects
+ * This class parses the dividend table text scraped from the Vanguard 
+ * web site, and returns a list of DividendPayment objects
+ * @author tripd22
  */
 public class DividendTableParser {
 	
 	static List<DividendPayment> parseDividendTable (String input) throws ParseException {
-		
 		List<DividendPayment> dividendPayments = new ArrayList<DividendPayment>();
 		
 		String[] lines = input.split("\n");

@@ -16,10 +16,8 @@ public class Main {
 		String file = args[0];
 
 		InputParser parser = new InputParser();
-		
-		List<ShareHolding> modifiedShares = parser.parse(file);
+
 		List<ShareHolding> originalShares = parser.parse(file);
-		List<ShareHolding> deletionShares = parser.parse(file);
 		
 		float totalCurrentValue = 0.0f;
 		float totalPurchasePrice = 0.0f;
@@ -41,15 +39,12 @@ public class Main {
 		ASXPriceService priceService = new ASXPriceService();
 		ASXDividendService dividendService = new ASXDividendService();
 		
-//		if (etfList == null) {
-//			System.out.println("ETF list is empty");
-//			return;
-//		}
-		
+		// iterate through each etf, and calculate the current value of the holding based on price + dividends
 		for (String etf : etfList) {
-			// calculate the current value of the etf holdings
 			Float currentPrice = priceService.retrievePrice(etf);
 			List<DividendPayment> dividendPayments = dividendService.retrieveDividends(etf);
+			
+			// add the holdings of the current etf to a list (there might be more than one holding of a given etf)
 			List<ShareHolding> shareHoldings = new ArrayList<ShareHolding>();
 			for (ShareHolding s : originalShares) {
 				if (s.getTicker().equals(etf)) {
@@ -70,18 +65,25 @@ public class Main {
 			float etfCurrentValue = shv.getValueBasedOnAccumulatedDividends() + shv.getValueBasedOnPrice();
 			float etfReturn =  ((etfCurrentValue / etfValueAtPurchase) - 1.0f) * 100;
 			
+			// print the data for the etf in a consistent format
 			System.out.println("\n---------------------------   " + etf + "   ---------------------------");
-			System.out.println("Current Price Value is " + shv.getValueBasedOnPrice());
-			System.out.println("Current Accumulated Dividend Value is " + shv.getValueBasedOnAccumulatedDividends());
-			System.out.println("Total Value is " + (shv.getValueBasedOnAccumulatedDividends() + shv.getValueBasedOnPrice()));
-			System.out.println("Purchase Value: " + etfValueAtPurchase + ", Current Value: " + etfCurrentValue + ", Return: " + etfReturn + "%");
+			System.out.println("You currently own " + (shv.getNumberOfDRPShares() + shv.getNumberOfPurchasedShares()) + " shares (" + shv.getNumberOfDRPShares() + " accumulated through the DRP)");
+			System.out.println("Current price is $" + (shv.getValueBasedOnPrice() / (shv.getNumberOfDRPShares() + shv.getNumberOfPurchasedShares())));
+			System.out.println("Current price value is $" + shv.getValueBasedOnPrice() + " and accumulated dividend value is $" + shv.getValueBasedOnAccumulatedDividends() );
+			System.out.println("Current total value is $" + etfCurrentValue);
+			System.out.println("Purchase price was $" + etfValueAtPurchase + ", including brokerage");
+			System.out.println("Return: " + etfReturn + "%");
+			
 			totalCurrentValue += shv.getValueBasedOnAccumulatedDividends() + shv.getValueBasedOnPrice();
 		}
 		
 		float returnPercentage = ((totalCurrentValue / totalPurchasePrice) - 1.0f) * 100;
 
+		// print the data for the overall portfolio
 		System.out.println("\n--------------------------   TOTAL   --------------------------");
-		System.out.println("Purchase Value: " + totalPurchasePrice + ", Current Value: " + totalCurrentValue + ", Return: " + returnPercentage + "%");
+		System.out.println("Current Value: $" + totalCurrentValue);
+		System.out.println("Purchase Cost	: $" + totalPurchasePrice);
+		System.out.println("Return: " + returnPercentage + "%");
 		
 		return;
 		

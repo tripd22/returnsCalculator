@@ -8,8 +8,19 @@ import java.util.List;
 
 import returnsCalculator.ShareHolding;
 
+/**
+ * This class is used to parse an input text file describing a shareholder's holdings
+ * @author tripd22
+ *
+ */
 public class InputParser {
 	
+	/**
+	 * Takes a text file listing a shareholder's holdings, and returns a list
+	 * of ShareHolding objects based on this data
+	 * @param filename
+	 * @return a list of ShareHolding objects
+	 */
 	List<ShareHolding> parse(String filename) {
 		
 		List<ShareHolding> shares = new ArrayList<ShareHolding>();
@@ -23,35 +34,35 @@ public class InputParser {
 		    // read the header line of the input file
 		    line = reader.readLine();
 		    
-		    // read in each subsequent line. If they are valid, add to list of StockHoldings
-		    while ((line = reader.readLine()) != null)
-		    {
-		      String[] data = line.split("\t");
+		    // read in each subsequent line - if they are valid, add to list of StockHoldings
+		    while ((line = reader.readLine()) != null) {
+		      String[] words = line.split("\t");
 		      line_counter++;
 		      
 		      // if the length of data != 5, then the share data in the input file is an invalid format
-		      if (data.length != 5) {
+		      if (words.length != 5) {
 		    	  System.out.println("Input data on line " + line_counter + " was incorrectly formatted");
+		    	  reader.close();
 		    	  return null;
 		      }
 		      
-		      String ticker = data[0];
-		      int amount = Integer.parseInt(data[1]);
-		      float price = Float.parseFloat(data[2]);
-		      float brokerage = Float.parseFloat(data[3]);
+		      String ticker = words[0];
+		      int amount = Integer.parseInt(words[1]);
+		      float price = Float.parseFloat(words[2]);
+		      float brokerage = Float.parseFloat(words[3]);
 		      
 		      SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		      Date purchaseDate = sdf.parse(data[4]);
+		      Date purchaseDate = sdf.parse(words[4]);
 		      
-		      ShareHolding s = new ShareHolding(amount, price, ticker, brokerage, purchaseDate);
+		      ShareHolding shareHolding = new ShareHolding(amount, price, ticker, brokerage, purchaseDate);
 		      
-		      if (!s.isValid()) {
+		      if (!shareHolding.isValid()) {
 		    	  System.out.println("Stock Holding data was invalid!");
+		    	  reader.close();
 		    	  return null;
 		      }
 		      
-		      shares.add(s);
-		      
+		      shares.add(shareHolding);   
 		    }
 		    reader.close();
 		  }

@@ -1,16 +1,8 @@
 package returnsCalculator;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,17 +11,20 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
-import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-
+/**
+ * This class is used to retrieve the distributions of a Vanguard ETF.
+ * It currently supports VAS, VGS and VGE ETFs
+ * @author tripd22
+ *
+ */
 public class ASXDividendService {
 	
+	/**
+	 * Returns a list of distributions for a given ticker
+	 * @param ticker
+	 * @return A list of distributions
+	 */
 	List<DividendPayment> retrieveDividends(String ticker) {
 		String url = " ";
 		if (ticker.equals("VAS")) {
@@ -40,18 +35,22 @@ public class ASXDividendService {
 			url = "https://www.vanguardinvestments.com.au/adviser/adv/investments/product.html#/fundDetail/etf/portId=8204/assetCode=equity/?prices";
 		}
 		
-		ChromeOptions chromeOptions = new ChromeOptions();
-		//chromeOptions.addArguments("--log-level=3");
-		//chromeOptions.addArguments("--silent");
+		if (url.equals(" ")) {
+			System.out.println("That ticker is not supported");
+			return null;
+		}
 		
+		// set up selenium to read distribution data
+		// simple html parsing not usable because of the way the Vanguard website loads
+		ChromeOptions chromeOptions = new ChromeOptions();		
 		System.setProperty("webdriver.chrome.driver","/home/darcy/Downloads/chromedriver");
-		//System.setProperty("webdriver.chrome.args", "--disable-logging");
 		System.setProperty("webdriver.chrome.silentOutput", "true");
 		Logger logger = Logger.getLogger("");
 		logger.setLevel(Level.OFF);
 		WebDriver driver = new ChromeDriver(chromeOptions);
 		driver.get(url);
 		
+		// if ticker == VGE, first must click "I am outside the U.S. button on the Vanguard webpage"
 		if (ticker.equals("VGE")) {
 			driver.findElements(By.className("vuiButton")).get(1).click();
 		}
@@ -59,10 +58,10 @@ public class ASXDividendService {
 		List<DividendPayment> dividendPayments = new ArrayList<DividendPayment>();
 		
 		try {
-	        Thread.sleep(10000);   //the page gets loaded completely
-
-	        List<String> pageSource = new ArrayList<String>(Arrays.asList(driver.getPageSource().split("\n")));
+	        Thread.sleep(5000);   // the page gets loaded completely
 	        WebElement data = driver.findElements(By.className("dataTable")).get(1);
+	        
+	        // call DividendTableParser on the data found
 	        dividendPayments = DividendTableParser.parseDividendTable(data.getText());
 	        
 		} catch (InterruptedException e) {

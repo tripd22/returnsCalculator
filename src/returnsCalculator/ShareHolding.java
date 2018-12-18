@@ -2,6 +2,12 @@ package returnsCalculator;
 
 import java.util.Date;
 
+/**
+ * This class is used to create objects that describe a 
+ * holding of ETFs
+ * @author tripd22
+ *
+ */
 public class ShareHolding implements Comparable<ShareHolding> {
 	
 	private int amount;
@@ -76,7 +82,7 @@ public class ShareHolding implements Comparable<ShareHolding> {
 		if (this.purchaseDate.after(date)) return false; 
 		
 		// check if the stock ticker is purely alphabetic
-		if (!this.getTicker().matches(".*[a-zA-Z]+.*[a-zA-Z]")) {
+		if (!this.getTicker().matches("^[a-zA-Z]*$")) {
 			return false;
 		}
 		return true;

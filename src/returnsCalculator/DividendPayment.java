@@ -2,6 +2,11 @@ package returnsCalculator;
 
 import java.util.Date;
 
+/**
+ * This class is used to create objects that describe a single distribution payment
+ * @author tripd22
+ *
+ */
 public class DividendPayment implements Comparable<DividendPayment> {
 
 	float amount;

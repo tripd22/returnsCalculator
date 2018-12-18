@@ -1,6 +1,3 @@
-/**
- * 
- */
 package returnsCalculator;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -8,15 +5,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 
 import org.junit.Rule;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.rules.ExpectedException;
 
 /**
- * @author darcy
+ * Test for the InputParser class
+ * @author tripd22
  *
  */
 class InputParserTest {
