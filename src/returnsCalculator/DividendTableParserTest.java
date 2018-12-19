@@ -9,7 +9,7 @@ import java.util.Scanner;
 import org.junit.jupiter.api.Test;
 
 /**
- * Test for the DividentTableParser class. Input file in 
+ * Test for the DividendTableParser class. Input file in 
  * testInput directory used to generate input String
  * @author tripd22
  *
@@ -22,7 +22,12 @@ class DividendTableParserTest {
 		String filename = "testInputs/dividendTableData.txt";
 		
 		try {
-		    String content = new Scanner(new File(filename)).useDelimiter("\\Z").next();
+			File file = new File(filename);
+			Scanner scanner = new Scanner(file);
+			scanner.useDelimiter("\\Z");
+		    String content = scanner.next();
+		    scanner.close();
+		    
 		    List<DividendPayment> dividendPayments;
 		    dividendPayments = DividendTableParser.parseDividendTable(content);
 		    assertEquals(dividendPayments.size(), 10);

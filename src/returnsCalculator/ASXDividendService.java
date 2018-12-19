@@ -53,12 +53,18 @@ public class ASXDividendService {
 		// if ticker == VGE, first must click "I am outside the U.S. button on the Vanguard webpage"
 		if (ticker.equals("VGE")) {
 			driver.findElements(By.className("vuiButton")).get(1).click();
+			try {
+				// need to sleep to allow the page to load after the click
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		List<DividendPayment> dividendPayments = new ArrayList<DividendPayment>();
 		
 		try {
-	        Thread.sleep(5000);   // the page gets loaded completely
+	        Thread.sleep(1000);   // the page gets loaded completely
 	        WebElement data = driver.findElements(By.className("dataTable")).get(1);
 	        
 	        // call DividendTableParser on the data found

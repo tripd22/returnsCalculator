@@ -28,7 +28,7 @@ class InputParserTest {
 	*/
 	@Test
 	void testValidInput() {
-		List<ShareHolding> shares = parser.parse("exampleInputs/validShareData.txt");
+		List<ShareHolding> shares = parser.parse("testInputs/validShareData.txt");
 		
 		ShareHolding share = shares.get(0);
 		assertTrue(share.getTicker().equals("VAS"));
@@ -68,7 +68,7 @@ class InputParserTest {
 	*/
 	@Test
 	void testInvalidDataNotEnoughDataProvided() {
-		List<ShareHolding> shares = parser.parse("exampleInputs/invalidShareData1.txt");
+		List<ShareHolding> shares = parser.parse("testInputs/invalidShareData1.txt");
 		thrown.expect(Exception.class);
 		assertTrue(shares == null);
 	}
@@ -78,7 +78,7 @@ class InputParserTest {
 	*/
 	@Test
 	void testInvalidDataIncorrectAmountDataType() {
-		List<ShareHolding> shares = parser.parse("exampleInputs/invalidShareData2.txt");
+		List<ShareHolding> shares = parser.parse("testInputs/invalidShareData2.txt");
 		thrown.expect(Exception.class);
 		assertTrue(shares == null);
 	}
@@ -88,7 +88,7 @@ class InputParserTest {
 	*/
 	@Test
 	void testInvalidDataNonAlphabeticTicker() {
-		List<ShareHolding> shares = parser.parse("exampleInputs/invalidShareData3.txt");
+		List<ShareHolding> shares = parser.parse("testInputs/invalidShareData3.txt");
 		assertTrue(shares == null);
 	}
 

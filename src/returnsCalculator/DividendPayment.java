@@ -9,9 +9,9 @@ import java.util.Date;
  */
 public class DividendPayment implements Comparable<DividendPayment> {
 
-	float amount;
-	Date exDividendDate;
-	float reinvestmentPrice;
+	private float amount;
+	private Date exDividendDate;
+	private float reinvestmentPrice;
 	
 	public DividendPayment(float amount, Date exDividendDate, float reinvestmentPrice) {
 		this.amount = amount;

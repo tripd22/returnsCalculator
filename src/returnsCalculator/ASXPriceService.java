@@ -19,7 +19,7 @@ import com.google.gson.JsonObject;
  */
 public class ASXPriceService {
 	
-	HashMap<String, Float> retrievedPrices;
+	private HashMap<String, Float> retrievedPrices;
 	
 	/**
 	 * Constructor for making the ASXPriceService - instantiate the HashMap

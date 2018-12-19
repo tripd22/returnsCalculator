@@ -1,3 +1,0 @@
-Ticker	Amount	PricePerShare	Brokerage PurchaseDate
-VAS	100	60.00	20.00	01/01/2016
-VAS	100	75.00	20.00	10/01/2018
