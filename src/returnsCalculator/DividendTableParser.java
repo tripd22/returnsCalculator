@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class DividendTableParser {
 	
-	static List<DividendPayment> parseDividendTable (String input) throws ParseException {
+	static List<DividendPayment> parseDividendTable (String input, String ticker) throws ParseException {
 		List<DividendPayment> dividendPayments = new ArrayList<DividendPayment>();
 		
 		String[] lines = input.split("\n");
@@ -41,7 +41,7 @@ public class DividendTableParser {
 			String reinvestmentPriceString = words[13];
 			Float reinvestmentPrice = Float.parseFloat(reinvestmentPriceString.substring(1, reinvestmentPriceString.length()));
 			
-			DividendPayment dividendPayment = new DividendPayment(amount, exDividendDate, reinvestmentPrice);
+			DividendPayment dividendPayment = new DividendPayment(ticker, amount, exDividendDate, reinvestmentPrice);
 			
 			dividendPayments.add(dividendPayment);
 			

@@ -1,7 +1,15 @@
 package returnsCalculator;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class Main {
@@ -15,8 +23,12 @@ public class Main {
 		
 		String file = args[0];
 
+		// read in dividend payments previously found and saved
+		DividendHistoryParser dhp = new DividendHistoryParser();
+		List<DividendPayment> savedDividendPayments = dhp.parse("exampleInputs/dividendHistory.txt");
+		
+		// parse shareholding list
 		InputParser parser = new InputParser();
-
 		List<ShareHolding> originalShares = parser.parse(file);
 		
 		float totalCurrentValue = 0.0f;
@@ -42,8 +54,50 @@ public class Main {
 		// iterate through each etf, and calculate the current value of the holding based on price + dividends
 		for (String etf : etfList) {
 			Float currentPrice = priceService.retrievePrice(etf);
-			List<DividendPayment> dividendPayments = dividendService.retrieveDividends(etf);
 			
+			// get date 3 months ago
+			Calendar c = Calendar.getInstance();
+			c.setTime(new Date());
+			c.add(Calendar.MONTH, -3);
+			Date cutoffDate = c.getTime();
+			
+			// check if the saved dividends include one from < 3 months ago
+			boolean recentDividendsIncluded = false;
+			
+			List<DividendPayment> dividendPayments = new ArrayList<DividendPayment>();
+			for (DividendPayment dp : savedDividendPayments) {
+				if (dp.getTicker().equals(etf)) {
+					dividendPayments.add(dp);
+					if (dp.getExDividendDate().after(cutoffDate)) {
+						recentDividendsIncluded = true;
+					}
+				}
+			}
+			
+			// if the saved dividends don't include recent dividends, query the vanguard website
+			if (!recentDividendsIncluded) {
+				List<DividendPayment> newDividendPayments = dividendService.retrieveDividends(etf);
+				for (DividendPayment newDividendPayment : newDividendPayments) {
+					boolean dividendExists = false;
+					for (DividendPayment existingDividendPayment : dividendPayments) {
+						if (newDividendPayment.getExDividendDate().equals(existingDividendPayment.getExDividendDate())) {
+							dividendExists = true;
+						}
+					}
+					// save the newly found dividends to the local dividend history
+					if (!dividendExists) {
+						dividendPayments.add(newDividendPayment);
+						try {
+							DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+							String s = newDividendPayment.getTicker() + "\t" + newDividendPayment.getAmount() + "\t" + df.format(newDividendPayment.getExDividendDate()) + "\t" + newDividendPayment.getReinvestmentPrice() + "\n";
+						    Files.write(Paths.get("exampleInputs/dividendHistory.txt"), s.getBytes(), StandardOpenOption.APPEND);
+						}catch (IOException e) {
+						    e.printStackTrace();
+						}
+					}
+				}
+			}
+				
 			// add the holdings of the current etf to a list (there might be more than one holding of a given etf)
 			List<ShareHolding> shareHoldings = new ArrayList<ShareHolding>();
 			for (ShareHolding s : originalShares) {

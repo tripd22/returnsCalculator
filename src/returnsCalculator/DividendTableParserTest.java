@@ -29,7 +29,7 @@ class DividendTableParserTest {
 		    scanner.close();
 		    
 		    List<DividendPayment> dividendPayments;
-		    dividendPayments = DividendTableParser.parseDividendTable(content);
+		    dividendPayments = DividendTableParser.parseDividendTable(content, "VAS");
 		    assertEquals(dividendPayments.size(), 10);
 		    
 		    DividendPayment dp = dividendPayments.get(0);

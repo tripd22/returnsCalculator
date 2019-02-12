@@ -68,7 +68,7 @@ public class ASXDividendService {
 	        WebElement data = driver.findElements(By.className("dataTable")).get(1);
 	        
 	        // call DividendTableParser on the data found
-	        dividendPayments = DividendTableParser.parseDividendTable(data.getText());
+	        dividendPayments = DividendTableParser.parseDividendTable(data.getText(), ticker);
 	        
 		} catch (InterruptedException e) {
 	        e.printStackTrace();

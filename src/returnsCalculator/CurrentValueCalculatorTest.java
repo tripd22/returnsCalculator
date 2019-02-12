@@ -33,7 +33,7 @@ class CurrentValueCalculatorTest {
 	    scanner.close();
 	    
 	    List<DividendPayment> dividendPayments;
-	    dividendPayments = DividendTableParser.parseDividendTable(content);
+	    dividendPayments = DividendTableParser.parseDividendTable(content, "VAS");
 	    
 	    // calculate value based on sample price
 	    float currentPrice = 71.52f;

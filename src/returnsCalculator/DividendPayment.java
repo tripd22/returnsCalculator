@@ -9,6 +9,7 @@ import java.util.Date;
  */
 public class DividendPayment implements Comparable<DividendPayment> {
 
+	private String ticker;
 	private float amount;
 	private Date exDividendDate;
 	private float reinvestmentPrice;
@@ -17,6 +18,22 @@ public class DividendPayment implements Comparable<DividendPayment> {
 		this.amount = amount;
 		this.exDividendDate = exDividendDate;
 		this.reinvestmentPrice = reinvestmentPrice;
+		this.ticker = "-";
+	}
+	
+	public DividendPayment(String ticker, float amount, Date exDividendDate, float reinvestmentPrice) {
+		this.amount = amount;
+		this.exDividendDate = exDividendDate;
+		this.reinvestmentPrice = reinvestmentPrice;
+		this.ticker = ticker;
+	}
+	
+	String getTicker() {
+		return this.ticker;
+	}
+	
+	void setTicker(String ticker) {
+		this.ticker = ticker;
 	}
 	
 	float getAmount() {
