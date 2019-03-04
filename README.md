@@ -8,3 +8,11 @@ Calculates the returns of Vanguard ETFs bought on the ASX, including any additio
 See the /exampleInputs/ directory for the correct format for input text files.
 
 Note: currently only supports VAS, VGS and VGE ETFs.
+
+Input:
+
+<img  src="images/inputScreenshot.png" height="140px">
+
+Output:
+
+<img  src="images/outputScreenshot.png" height="550px">
