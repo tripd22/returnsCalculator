@@ -1,4 +1,4 @@
-package returnsCalculator;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -8,6 +8,9 @@ import org.junit.Rule;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.rules.ExpectedException;
+
+import returnsCalculator.InputParser;
+import returnsCalculator.ShareHolding;
 
 /**
  * Test for the InputParser class
@@ -28,7 +31,7 @@ class InputParserTest {
 	*/
 	@Test
 	void testValidInput() {
-		List<ShareHolding> shares = parser.parse("testInputs/validShareData.txt");
+		List<ShareHolding> shares = parser.parse("test/testInputs/validShareData.txt");
 		
 		ShareHolding share = shares.get(0);
 		assertTrue(share.getTicker().equals("VAS"));
@@ -68,7 +71,7 @@ class InputParserTest {
 	*/
 	@Test
 	void testInvalidDataNotEnoughDataProvided() {
-		List<ShareHolding> shares = parser.parse("testInputs/invalidShareData1.txt");
+		List<ShareHolding> shares = parser.parse("test/testInputs/invalidShareData1.txt");
 		thrown.expect(Exception.class);
 		assertTrue(shares == null);
 	}
@@ -78,7 +81,7 @@ class InputParserTest {
 	*/
 	@Test
 	void testInvalidDataIncorrectAmountDataType() {
-		List<ShareHolding> shares = parser.parse("testInputs/invalidShareData2.txt");
+		List<ShareHolding> shares = parser.parse("test/testInputs/invalidShareData2.txt");
 		thrown.expect(Exception.class);
 		assertTrue(shares == null);
 	}
@@ -88,7 +91,7 @@ class InputParserTest {
 	*/
 	@Test
 	void testInvalidDataNonAlphabeticTicker() {
-		List<ShareHolding> shares = parser.parse("testInputs/invalidShareData3.txt");
+		List<ShareHolding> shares = parser.parse("test/testInputs/invalidShareData3.txt");
 		assertTrue(shares == null);
 	}
 

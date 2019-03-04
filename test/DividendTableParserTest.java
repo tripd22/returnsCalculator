@@ -1,4 +1,4 @@
-package returnsCalculator;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Scanner;
 
 import org.junit.jupiter.api.Test;
+
+import returnsCalculator.DividendPayment;
+import returnsCalculator.DividendTableParser;
 
 /**
  * Test for the DividendTableParser class. Input file in 
@@ -19,7 +22,7 @@ class DividendTableParserTest {
 	@Test
 	void testParseDividendTable() {
 		
-		String filename = "testInputs/dividendTableData.txt";
+		String filename = "test/testInputs/dividendTableData.txt";
 		
 		try {
 			File file = new File(filename);

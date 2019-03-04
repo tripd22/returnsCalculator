@@ -1,4 +1,4 @@
-package returnsCalculator;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,6 +10,13 @@ import java.util.Scanner;
 
 import org.junit.jupiter.api.Test;
 
+import returnsCalculator.CurrentValueCalculator;
+import returnsCalculator.DividendPayment;
+import returnsCalculator.DividendTableParser;
+import returnsCalculator.InputParser;
+import returnsCalculator.ShareHolding;
+import returnsCalculator.ShareHoldingValue;
+
 /**
  * Tests the CurrentValueCalculator class with sample dividend and price data
  * @author tripd22
@@ -20,12 +27,12 @@ class CurrentValueCalculatorTest {
 	@Test
 	void testCalculateCurrentValue() throws ParseException, FileNotFoundException {
 		// import share data
-		String shareDataFilename = "testInputs/validShareDataVAS.txt";
+		String shareDataFilename = "test/testInputs/validShareDataVAS.txt";
 		InputParser parser = new InputParser();
 		List<ShareHolding> originalShares = parser.parse(shareDataFilename);
 		
 		// import dividend data
-		String dividendDataFilename = "testInputs/dividendTableDataVAS.txt";
+		String dividendDataFilename = "test/testInputs/dividendTableDataVAS.txt";
 		File dividendDataFile = new File(dividendDataFilename);
 		Scanner scanner = new Scanner(dividendDataFile);
 		scanner.useDelimiter("\\Z");

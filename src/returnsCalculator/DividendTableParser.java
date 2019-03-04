@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class DividendTableParser {
 	
-	static List<DividendPayment> parseDividendTable (String input, String ticker) throws ParseException {
+	public static List<DividendPayment> parseDividendTable (String input, String ticker) throws ParseException {
 		List<DividendPayment> dividendPayments = new ArrayList<DividendPayment>();
 		
 		String[] lines = input.split("\n");

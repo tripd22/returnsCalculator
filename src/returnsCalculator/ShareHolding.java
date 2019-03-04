@@ -36,7 +36,7 @@ public class ShareHolding implements Comparable<ShareHolding> {
 		this.amount = amount;
 	}
 	
-	int getAmount() {
+	public int getAmount() {
 		return this.amount;
 	}
 	
@@ -44,7 +44,7 @@ public class ShareHolding implements Comparable<ShareHolding> {
 		this.price = price;
 	}
 	
-	float getPrice() {
+	public float getPrice() {
 		return this.price;
 	}
 	
@@ -52,7 +52,7 @@ public class ShareHolding implements Comparable<ShareHolding> {
 		this.ticker = ticker;
 	}
 	
-	String getTicker() {
+	public String getTicker() {
 		return this.ticker;
 	}
 	
@@ -60,7 +60,7 @@ public class ShareHolding implements Comparable<ShareHolding> {
 		this.brokerage = brokerage;
 	}
 	
-	float getBrokerage() {
+	public float getBrokerage() {
 		return this.brokerage;
 	}
 	
@@ -68,11 +68,11 @@ public class ShareHolding implements Comparable<ShareHolding> {
 		this.purchaseDate = purchaseDate;
 	}
 	
-	Date getPurchaseDate() {
+	public Date getPurchaseDate() {
 		return this.purchaseDate;
 	}
 	
-	boolean isValid() {
+	public boolean isValid() {
 		if (this.ticker.equals("")) return false;
 		if (this.amount < 1) return false;
 		if (this.price < 0.0f) return false;

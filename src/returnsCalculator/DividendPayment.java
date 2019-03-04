@@ -28,7 +28,7 @@ public class DividendPayment implements Comparable<DividendPayment> {
 		this.ticker = ticker;
 	}
 	
-	String getTicker() {
+	public String getTicker() {
 		return this.ticker;
 	}
 	
@@ -36,7 +36,7 @@ public class DividendPayment implements Comparable<DividendPayment> {
 		this.ticker = ticker;
 	}
 	
-	float getAmount() {
+	public float getAmount() {
 		return this.amount;
 	}
 	
@@ -44,7 +44,7 @@ public class DividendPayment implements Comparable<DividendPayment> {
 		this.amount = amount;
 	}
 	
-	Date getExDividendDate() {
+	public Date getExDividendDate() {
 		return this.exDividendDate;
 	}
 	
@@ -52,7 +52,7 @@ public class DividendPayment implements Comparable<DividendPayment> {
 		this.exDividendDate = exDividendDate;
 	}
 	
-	float getReinvestmentPrice() {
+	public float getReinvestmentPrice() {
 		return this.reinvestmentPrice;
 	}
 	

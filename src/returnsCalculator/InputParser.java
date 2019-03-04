@@ -21,7 +21,7 @@ public class InputParser {
 	 * @param filename
 	 * @return a list of ShareHolding objects
 	 */
-	List<ShareHolding> parse(String filename) {
+	public List<ShareHolding> parse(String filename) {
 		
 		List<ShareHolding> shares = new ArrayList<ShareHolding>();
 		

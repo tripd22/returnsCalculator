@@ -25,7 +25,7 @@ public class ASXDividendService {
 	 * @param ticker
 	 * @return A list of distributions
 	 */
-	List<DividendPayment> retrieveDividends(String ticker) {
+	public List<DividendPayment> retrieveDividends(String ticker) {
 		String url = " ";
 		if (ticker.equals("VAS")) {
 			url = "https://www.vanguardinvestments.com.au/retail/ret/investments/product.html#/fundDetail/etf/portId=8205/?prices";

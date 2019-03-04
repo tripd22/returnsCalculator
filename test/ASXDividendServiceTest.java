@@ -1,4 +1,4 @@
-package returnsCalculator;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -6,6 +6,9 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import returnsCalculator.ASXDividendService;
+import returnsCalculator.DividendPayment;
 
 /**
  * Tests the ASXDividendService class

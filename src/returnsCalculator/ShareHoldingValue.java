@@ -11,7 +11,7 @@ public class ShareHoldingValue {
 	private int numberOfDRPShares;
 	private int numberOfPurchasedShares;
 	
-	float getValueBasedOnPrice() {
+	public float getValueBasedOnPrice() {
 		return this.valueBasedOnPrice;
 	}
 	
@@ -19,7 +19,7 @@ public class ShareHoldingValue {
 		this.valueBasedOnPrice = valueBasedOnPrice;
 	}
 	
-	float getValueBasedOnAccumulatedDividends() {
+	public float getValueBasedOnAccumulatedDividends() {
 		return this.valueBasedOnAccumulatedDividends;
 	}
 	
@@ -27,7 +27,7 @@ public class ShareHoldingValue {
 		this.valueBasedOnAccumulatedDividends = valueBasedOnAccumulatedDividends;
 	}
 	
-	int getNumberOfDRPShares() {
+	public int getNumberOfDRPShares() {
 		return this.numberOfDRPShares;
 	}
 	
@@ -35,7 +35,7 @@ public class ShareHoldingValue {
 		this.numberOfDRPShares = numberOfDRPShares;
 	}
 	
-	int getNumberOfPurchasedShares() {
+	public int getNumberOfPurchasedShares() {
 		return this.numberOfPurchasedShares;
 	}
 	

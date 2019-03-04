@@ -33,7 +33,7 @@ public class ASXPriceService {
 	 * @param ticker
 	 * @return the current price of the stock
 	 */
-	Float retrievePrice(String ticker) {
+	public Float retrievePrice(String ticker) {
 		// first check hash map - might have already looked up this stock's current price
 		Float p = retrievedPrices.get(ticker);
 		if (p != null) {
