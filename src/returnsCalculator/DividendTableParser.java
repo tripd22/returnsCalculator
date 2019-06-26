@@ -4,7 +4,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * This class parses the dividend table text scraped from the Vanguard 
@@ -13,8 +15,8 @@ import java.util.List;
  */
 public class DividendTableParser {
 	
-	public static List<DividendPayment> parseDividendTable (String input, String ticker) throws ParseException {
-		List<DividendPayment> dividendPayments = new ArrayList<DividendPayment>();
+	public static Set<DividendPayment> parseDividendTable (String input, String ticker) throws ParseException {
+		Set<DividendPayment> dividendPayments = new HashSet<DividendPayment>();
 		
 		String[] lines = input.split("\n");
 		for (int i = 5; i < 20; i++) {

@@ -17,7 +17,7 @@ import com.google.gson.JsonObject;
  * @author tripd22
  *
  */
-public class ASXPriceService {
+public class ASXPriceService implements PriceService {
 	
 	private HashMap<String, Float> retrievedPrices;
 	

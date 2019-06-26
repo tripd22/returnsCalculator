@@ -2,7 +2,9 @@ package returnsCalculator;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,14 +20,14 @@ import org.openqa.selenium.chrome.ChromeOptions;
  * @author tripd22
  *
  */
-public class ASXDividendService {
+public class ASXDividendService implements DividendService {
 	
 	/**
 	 * Returns a list of distributions for a given ticker
 	 * @param ticker
 	 * @return A list of distributions
 	 */
-	public List<DividendPayment> retrieveDividends(String ticker) {
+	public Set<DividendPayment> retrieveDividends(String ticker) {
 		String url = " ";
 		if (ticker.equals("VAS")) {
 			url = "https://www.vanguardinvestments.com.au/retail/ret/investments/product.html#/fundDetail/etf/portId=8205/?prices";
@@ -61,7 +63,7 @@ public class ASXDividendService {
 			}
 		}
 		
-		List<DividendPayment> dividendPayments = new ArrayList<DividendPayment>();
+		Set<DividendPayment> dividendPayments = new HashSet<DividendPayment>();
 		
 		try {
 	        Thread.sleep(1000);   // the page gets loaded completely

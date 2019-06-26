@@ -4,7 +4,11 @@ import java.io.FileReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import returnsCalculator.DividendPayment;
 
@@ -21,9 +25,9 @@ public class DividendHistoryParser {
 	 * @param filename
 	 * @return a list of ShareHolding objects
 	 */
-	List<DividendPayment> parse(String filename) {
+	Map<String, Set<DividendPayment>> parse(String filename) {
 		
-		List<DividendPayment> dividendPayments = new ArrayList<DividendPayment>();
+		Map<String, Set<DividendPayment>> dividendPayments = new HashMap<>();
 		
 		try
 		  {
@@ -47,6 +51,11 @@ public class DividendHistoryParser {
 		      }
 		      
 		      String ticker = words[0];
+		      if (!dividendPayments.containsKey(ticker)) {
+		    	  Set<DividendPayment> dividends = new HashSet<DividendPayment>();
+		    	  dividendPayments.put(ticker, dividends);
+		      }
+		      
 		      float amount = Float.parseFloat(words[1]);
 		      
 		      SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -56,7 +65,7 @@ public class DividendHistoryParser {
 		      
 		      DividendPayment dividendPayment = new DividendPayment(ticker, amount, exDivDate, reinvestmentPrice);
 		      
-		      dividendPayments.add(dividendPayment);
+		      dividendPayments.get(ticker).add(dividendPayment);
 
 		    }
 		    reader.close();
