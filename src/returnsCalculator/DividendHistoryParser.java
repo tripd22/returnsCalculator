@@ -2,11 +2,9 @@ package returnsCalculator;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -25,7 +23,7 @@ public class DividendHistoryParser {
 	 * @param filename
 	 * @return a list of ShareHolding objects
 	 */
-	Map<String, Set<DividendPayment>> parse(String filename) {
+	static Map<String, Set<DividendPayment>> parse(String filename) {
 		
 		Map<String, Set<DividendPayment>> dividendPayments = new HashMap<>();
 		

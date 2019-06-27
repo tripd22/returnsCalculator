@@ -11,9 +11,10 @@ public class Main {
 			return;
 		}
 		
-		String file = args[0];
+		String etfFileName = args[0];
+		String dividendHistoryFileName = args[1];
 		
-		new Program().run(file);
+		new Program().run(etfFileName, dividendHistoryFileName);
 		
 	}
 

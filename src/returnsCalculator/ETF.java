@@ -6,24 +6,55 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
-/**
- * This class calculates the current value of a share holding based
- * on it's dividend payments and current price
- * @author tripd22
- */
-public class CurrentValueCalculator {
+public class ETF {
+
+	private String ticker;
+	private Set<DividendPayment> dividendPayments;
+	private Set<Transaction> transactions;
+	private Float currentPrice;
 	
-	/**
-	 * Calculates the value of a list of holdings of an ETF, based on the current price, the purchase history, the dividend history, and the dividend reinvestment plan
-	 * 
-	 * @param shareHoldings
-	 * @param dividendPayments
-	 * @param currentPrice
-	 * @return a ShareHoldingValue object containing the current value data for the ETF holding
-	 * @throws ParseException
-	 */
-	public static ShareHoldingValue calculateCurrentValue(List<ShareHolding> shareHoldings, List<DividendPayment> dividendPayments, float currentPrice) throws ParseException {
+	public ETF(String ticker) {
+		this.ticker = ticker;
+	}
+	
+	public String getTicker() {
+		return ticker;
+	}
+	
+	public void setTicker(String ticker) {
+		this.ticker = ticker;
+	}
+	
+	public Set<DividendPayment> getDividendPayments() {
+		return dividendPayments;
+	}
+	
+	public void setDividendPayments(Set<DividendPayment> dividendPayments) {
+		this.dividendPayments = dividendPayments;
+	}
+	
+	public Set<Transaction> getTransactions() {
+		return transactions;
+	}
+	
+	public void setTransactions(Set<Transaction> transactions) {
+		this.transactions = transactions;
+	}
+
+	public Float getCurrentPrice() {
+		return currentPrice;
+	}
+
+	public void setCurrentPrice(Float currentPrice) {
+		this.currentPrice = currentPrice;
+	}
+	
+	public ShareHoldingValue calculateValue()  {
+		List<Transaction> shareHoldings = new ArrayList<>(this.transactions);
+		List<DividendPayment> dividendPayments = new ArrayList<>(this.dividendPayments);
+		
 		
 		// set up object to be returned
 		ShareHoldingValue shv = new ShareHoldingValue();
@@ -32,7 +63,7 @@ public class CurrentValueCalculator {
 		
 		// create object to store overallShareHolding for an ETF
 		// if a person owns more than 1 lot of the same ETF, they will be merged into one holding in this object
-		ShareHolding overallShareHolding = new ShareHolding();
+		Transaction overallShareHolding = new Transaction();
 		overallShareHolding.setAmount(0);
 		overallShareHolding.setBrokerage(0.0f);
 		overallShareHolding.setPrice(0.0f);
@@ -41,9 +72,14 @@ public class CurrentValueCalculator {
 		
 		// add book end values to the shareHoldings and dividendPayments lists
 		SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
-		Date futureDate = sdf.parse("01 Jan 9999");
+		Date futureDate = null;
+		try {
+			futureDate = sdf.parse("01 Jan 9999");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
 		DividendPayment dp = new DividendPayment(0, futureDate, 0);
-		ShareHolding sh = new ShareHolding(0, 0.0f, "", 0.0f, futureDate);
+		Transaction sh = new Transaction(0, 0.0f, "", 0.0f, futureDate);
 		dividendPayments.add(dp);
 		shareHoldings.add(sh);
 		
@@ -55,7 +91,7 @@ public class CurrentValueCalculator {
 		int shareHoldingIndex = 1;
 		int dividendPaymentIndex = 1;
 		
-		ShareHolding currentShareHolding = shareHoldings.get(0);
+		Transaction currentShareHolding = shareHoldings.get(0);
 		DividendPayment currentDividendPayment = dividendPayments.get(0);
 		
 		// loop to find the next event for the shareholder (either external purchase of more ETF units, or DRP purchase)
@@ -97,9 +133,18 @@ public class CurrentValueCalculator {
 		
 		shv.setValueBasedOnAccumulatedDividends(currentValueBasedOnDividends);
 		shv.setValueBasedOnPrice(currentValueBasedOnPrice);
+		shv.setCurrentPrice(currentPrice);
+		shv.setTicker(ticker);
+		
+		Float totalCost = 0.0f;
+		for (Transaction t : transactions) {
+			totalCost += (t.getPrice() * t.getAmount()) + t.getBrokerage();
+		}
+		
+		shv.setTotalCost(totalCost);
 		
 		return shv;
 		
 	}
-
+	
 }

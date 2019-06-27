@@ -8,7 +8,7 @@ import java.util.Date;
  * @author tripd22
  *
  */
-public class ShareHolding implements Comparable<ShareHolding> {
+public class Transaction implements Comparable<Transaction> {
 	
 	private int amount;
 	private float price;
@@ -16,7 +16,7 @@ public class ShareHolding implements Comparable<ShareHolding> {
 	private float brokerage;
 	private Date purchaseDate;
 	
-	public ShareHolding() {
+	public Transaction() {
 		this.amount = 0;
 		this.price = 0.0f;
 		this.ticker = null;
@@ -24,7 +24,7 @@ public class ShareHolding implements Comparable<ShareHolding> {
 		this.purchaseDate = null;
 	}
 	
-	public ShareHolding(int amount, float price, String ticker, float brokerage, Date purchaseDate) {
+	public Transaction(int amount, float price, String ticker, float brokerage, Date purchaseDate) {
 		this.amount = amount;
 		this.price = price;
 		this.ticker = ticker;
@@ -88,7 +88,7 @@ public class ShareHolding implements Comparable<ShareHolding> {
 		return true;
 	}
 	
-	public int compareTo(ShareHolding shareHolding) {
+	public int compareTo(Transaction shareHolding) {
 		if (this.getPurchaseDate().after(shareHolding.getPurchaseDate())) {
 			return 1;
 		} else {

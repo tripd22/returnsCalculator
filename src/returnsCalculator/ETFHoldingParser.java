@@ -2,28 +2,30 @@ package returnsCalculator;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
-import returnsCalculator.ShareHolding;
+import returnsCalculator.Transaction;
 
 /**
  * This class is used to parse an input text file describing a shareholder's holdings
  * @author tripd22
  *
  */
-public class InputParser {
+public class ETFHoldingParser {
 	
 	/**
-	 * Takes a text file listing a shareholder's holdings, and returns a list
-	 * of ShareHolding objects based on this data
+	 * Takes a text file listing a shareholder's transactions, and returns a list
+	 * of Transaction objects based on this data
 	 * @param filename
 	 * @return a list of ShareHolding objects
 	 */
-	public List<ShareHolding> parse(String filename) {
+	static public Map<String, Set<Transaction>> parse(String filename) {
 		
-		List<ShareHolding> shares = new ArrayList<ShareHolding>();
+		Map<String, Set<Transaction>> transactions = new HashMap<>();
 		
 		try
 		  {
@@ -54,15 +56,19 @@ public class InputParser {
 		      SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		      Date purchaseDate = sdf.parse(words[4]);
 		      
-		      ShareHolding shareHolding = new ShareHolding(amount, price, ticker, brokerage, purchaseDate);
+		      Transaction transaction = new Transaction(amount, price, ticker, brokerage, purchaseDate);
 		      
-		      if (!shareHolding.isValid()) {
-		    	  System.out.println("Stock Holding data was invalid!");
+		      if (!transaction.isValid()) {
+		    	  System.out.println("Transaction data was invalid!");
 		    	  reader.close();
 		    	  return null;
 		      }
 		      
-		      shares.add(shareHolding);   
+		      if (!transactions.containsKey(ticker)) {
+		    	  transactions.put(ticker, new HashSet<Transaction>());
+		      }
+		      
+		      transactions.get(ticker).add(transaction);
 		    }
 		    reader.close();
 		  }
@@ -72,7 +78,7 @@ public class InputParser {
 		    return null;
 		  }
 		
-		return shares;
+		return transactions;
 	}
 
 }
